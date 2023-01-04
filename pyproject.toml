@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "qap-project-lvl2"
+version = "0.1.0"
+description = ""
+authors = ["Mikhail Lyalin <mc.lyalin@gmail.com>"]
+readme = "README.md"
+packages = [{include = "qap_project_lvl2"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
