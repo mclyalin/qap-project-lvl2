@@ -8,6 +8,7 @@ packages = [{include = "qap_project_lvl2"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+pytelegrambotapi = "^4.9.0"
 
 
 [build-system]
