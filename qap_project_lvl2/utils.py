@@ -7,7 +7,21 @@ class ConvertionException(Exception):
 
 class Converter:
   @staticmethod
-  def convert(quote: str, base: str, amount: str):
+  def get_price(quote: str, base: str, amount: float):
+    r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote}&tsyms={base}')
+    rate = json.loads(r.content)[base]
+    price = amount * float(rate)
+
+    return price
+
+class Validator:
+  @staticmethod
+  def validate(values: list):
+    if len(values) != 3:
+      raise ConvertionException('Неверное количество параметров')
+
+    quote, base, amount = values
+
     if quote == base:
       raise ConvertionException(f'Невозможно перевести {quote} в {base}')
 
@@ -24,8 +38,4 @@ class Converter:
     except ValueError:
       raise ConvertionException(f'Неудалось обработать количество {amount}')
 
-    r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
-    rate = int(json.loads(r.content)[keys[base]])
-    total_base = amount * rate
-
-    return quote_ticker, base_ticker, total_base
+    return quote_ticker, base_ticker, amount
