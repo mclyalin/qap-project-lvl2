@@ -1,6 +1,6 @@
 import telebot
-from config import keys, TOKEN
-from utils import Validator, Converter, ConvertionException
+from config import currency_map, TOKEN
+from extensions import Validator, Converter, ConvertionException
 
 
 bot = telebot.TeleBot(TOKEN)
@@ -16,11 +16,11 @@ def help(message: telebot.types.Message):
 @bot.message_handler(commands=['values'])
 def values(message: telebot.types.Message):
   text = 'Доступные валюты:'
-  for key in keys.keys():
-    text = '\n'.join((text, key, ))
+  for key, value in currency_map.items():
+    text = '\n'.join((text, f'{key} ({value})'))
   bot.reply_to(message, text)
 
-@bot.message_handler(content_types=['text', ])
+@bot.message_handler(content_types=['text'])
 def convert(message: telebot.types.Message):
   values = message.text.split(' ')
 
