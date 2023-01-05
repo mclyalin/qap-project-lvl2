@@ -1,6 +1,6 @@
 import requests
 import json
-from config import keys
+from config import currency_map
 
 class ConvertionException(Exception):
   pass
@@ -25,13 +25,13 @@ class Validator:
     if quote == base:
       raise ConvertionException(f'Невозможно перевести {quote} в {base}')
 
-    if quote not in keys:
+    if quote not in currency_map:
       raise ConvertionException(f'Неудалось обработать валюту {quote}')
 
-    if base not in keys:
+    if base not in currency_map:
       raise ConvertionException(f'Неудалось обработать валюту {base}')
 
-    quote_ticker, base_ticker = keys[quote], keys[base]
+    quote_ticker, base_ticker = currency_map[quote], currency_map[base]
 
     try:
       amount = float(amount)
