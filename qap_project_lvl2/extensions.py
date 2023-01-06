@@ -38,4 +38,10 @@ class Validator:
     except ValueError:
       raise ConvertionException(f'Неудалось обработать количество {amount}')
 
+    if amount < 0:
+        raise ConvertionException(f'Количество не может быть отрицательным')
+
+    if amount == 0:
+        raise ConvertionException(f'Количество не может быть равным 0')
+
     return quote_ticker, base_ticker, amount
